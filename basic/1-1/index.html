@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <!-- fot dev -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/Users/takeru/dev/view/vuetorial/style.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <div>
+          <div>
+              <!-- v-onclickと同じ -->
+              <!-- <button v-on:click="changeBools">Change!</button> -->
+              <button @click="changeBools">Change!</button>
+
+          </div>
+        <div>
+          <button :disabled="isButtonDisable">Button</button>
+          <!-- v-bindと同じ -->
+          <!-- <button v-bind:disabled="isButtonActive">Button</button> -->
+        </div>
+        <div>
+            <button v-on:click="inlineMethod(message)">Inline method</button>
+            <!-- イベントのキャプチャー -->
+            <button v-on:click="inlineMethod(message, $event)">Inline method</button>
+            <button v-on:click.once="onOnetimeButtonClicked">once</button>
+        </div>
+        <div>
+            <span>{{ "isButtonDisable? = " + isButtonDisable }}</span>
+        </div>
+        <div>
+            <form v-on:submit.prevent="onSubmit">
+                <input />
+            </form>
+        </div>
+        <div>
+            keyup: <input @keyup.alt.67="onKeyup"></input>
+        </div>
+        <!-- vueインスタンスの中身 -->
+        <pre>{{ $data }}</pre>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

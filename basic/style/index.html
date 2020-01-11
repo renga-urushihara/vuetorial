@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/Users/takeru/dev/view/vuetorial/style.css"
+    />
+    <style>
+      .active {
+        color: brown;
+      }
+      .static {
+        background-color: azure;
+        display: none;
+      }
+      .text-danger {
+        color: red;
+        border-bottom: 1px yellow solid;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <div>
+        <input @input="onChangeText" />
+        <div v-bind:class="{ active: isActive }">
+          <button @click="onButtonClicked">change!</button>
+          <span>some text here...</span>
+        </div>
+        <div
+          class="static"
+          v-bind:class="{ active: isActive, 'text-danger': hasError }"
+        >
+          <h2>error</h2>
+        </div>
+        <div v-bind:class="getClass">
+            <span>getClass</span>
+        </div>
+        <div v-bind:class="[{ active: isActive }, errorClass]">
+            <span>list classes</span>
+        </div>
+        <my-component class="hoge var"></my-component>
+        <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">
+            <span>bind style here..</span>
+        </div>
+        <div v-bind:style="style">
+            <span>style object</span>
+        </div>
+        <!-- from v2.3.0~ ブラウザのサポートしている物を先頭から順に検証して当てはめる。 -->
+        <div v-bind:style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Users/takeru/dev/view/vuetorial/style.css" />
+</head>
+
+<body>
+    <div id="app">
+        {{ message }}
+        <div>
+            <input @input="onChangeText" />
+        </div>
+        <div>
+            <h1 v-if="awesome">Vue is awesome!</h1>
+            <h1 v-else>Oh no 😢</h1>
+        </div>
+        <template v-if="loginType==='username'">
+            <!-- <label>Username</label> -->
+            <input placeholder="Enter your username"></input>
+        </template>
+        <template v-else>
+            <!-- <label>Email</label> -->
+            <input placeholder="Enter your email address"></input>
+        </template>
+        <!-- 重要 ここのtemplateタグはマウントされない(子要素3の親要素として描画されない) -->
+        <template v-if="isOk">
+            <h1>Title</h1>
+            <p>Paragraph 1</p>
+            <p>Paragraph 2</p>
+        </template>
+        <div>
+            <template v-if="isOk">
+                Now you see me
+            </template>
+            <template v-else>
+                Now you don't
+            </template>
+        </div>
+        <div>
+            <div v-if="type === 'A'">
+                A
+            </div>
+            <div v-else-if="type === 'B'">
+                B
+            </div>
+            <div v-else-if="type === 'C'">
+                C
+            </div>
+            <div v-else>
+                Not A/B/C
+            </div>
+        </div>
+        <div>
+            <!-- 重要 v-ifは要素を物理的に消すが、v-showはdisplay:noneを適用する ※https://jp.vuejs.org/v2/guide/conditional.html#v-if-vs-v-show -->
+            <h1 v-show="isOk">Hello!</h1>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>

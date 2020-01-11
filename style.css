@@ -1,0 +1,16 @@
+button {
+    background-color: azure;
+    outline: none;
+}
+
+div {
+    margin: 3px;
+}
+
+textarea {
+    border: 1px solid black;
+}
+
+input {
+    border: 1px black solid;
+}
