@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/Users/takeru/dev/view/vuetorial/style.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <div>
+        <input @input="onChangeText" />
+      </div>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <div>
+        <blog-post title="message"></blog-post>
+      </div>
+      <div>
+        <blog-post
+          v-for="post in posts"
+          v-bind:key="post.id"
+          v-bind:title="post.title"
+        ></blog-post>
+      </div>
+      <div>
+        <div :style="{ fontSize: postFontSize + 'em' }">
+          <blog-post-custom
+            v-for="post in posts"
+            v-bind:key="post.id"
+            v-bind:post="post"
+            v-on:enlarge-text2="postFontSize += $event"
+          ></blog-post-custom>
+        </div>
+      </div>
+      <div>
+        <!-- これと -->
+        <!-- <input v-model="searchText"> -->
+        <!-- これは同じこと -->
+        <!-- <input
+          v-bind:value="searchText"
+          v-on:input="searchText = $event.target.value"
+        /> -->
+        <!-- これと -->
+        <!-- <custom-input
+          v-bind:value="searchText"
+          v-on:input="searchText = $event"
+        ></custom-input> -->
+        <!-- これは同じこと -->
+        <!-- <custom-input v-model="searchText"></custom-input> -->
+      </div>
+      <div>
+        <alert-box>
+          Something bad happened.
+        </alert-box>
+      </div>
+      <div>
+        <!-- currentTabComponent が変更されたとき、コンポーネントを変更します -->
+        <component v-bind:is="currentTabComponent"></component>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

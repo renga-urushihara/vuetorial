@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/Users/takeru/dev/view/vuetorial/style.css"
+    />
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <div>
+        <input @input="onChangeText" />
+      </div>
+      <div>
+        <button v-on:click="counter += 1">Add 1</button>
+        <p>The button above has been clicked {{ counter }} times.</p>
+      </div>
+      <div>
+        <button v-on:click="say('hi')">Say hi</button>
+        <button v-on:click="say('what')">Say what</button>
+      </div>
+      <div>
+        <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+          Submit
+        </button>
+      </div>
+      <div>
+        <!-- クリックイベントの伝搬が止まります -->
+        <a v-on:click.stop="say('stop')">a</a>
+
+        <!-- submit イベントによってページがリロードされません -->
+        <form v-on:submit.prevent="say(prevent)">a</form>
+
+        <!-- 修飾子は繋げることができます -->
+        <a v-on:click.stop.prevent="say(stop-prevent)">a</a>
+
+        <!-- 値を指定せず、修飾子だけ利用することもできます -->
+        <form v-on:submit.prevent>a</form>
+
+        <!-- イベントリスナーを追加するときにキャプチャモードで使います -->
+        <!-- 言い換えれば、内部要素を対象とするイベントは、その要素によって処理される前にここで処理されます -->
+        <div v-on:click.capture="say('stop')">...</div>
+
+        <!-- event.target が要素自身のときだけ、ハンドラが呼び出されます -->
+        <!-- 言い換えると子要素のときは呼び出されません -->
+        <div v-on:click.self="say('stop')">...</div>
+
+        <!-- 最大1回、クリックイベントはトリガされます -->
+        <a v-on:click.once="say('once')">once</a>
+
+        <!-- `onScroll` が `event.preventDefault()` を含んでいたとしても -->
+        <!-- スクロールイベントのデフォルトの挙動(つまりスクロール)は -->
+        <!-- イベントの完了を待つことなくただちに発生するようになります -->
+        <div style="height: 10vh;" v-on:click.passive="onScroll($event)"></div>
+      </div>
+      <div>
+        <input v-on:keyup.enter="onEnterkeyPress" />
+      </div>
+      <div>
+        <input v-on:keyup.shift="onPageDown" />
+      </div>
+      <div>
+        <!-- Alt + C -->
+        <input @keyup.alt.67="say('alt + C')" />
+
+        <!-- Ctrl + Click -->
+        <div @click.ctrl="say('ctrl + click')">Do something</div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

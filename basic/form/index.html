@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/Users/takeru/dev/view/vuetorial/style.css"
+    />
+    <!-- v-model は任意の form 要素にある value、
+  checked または selected 属性の初期値を無視します。
+  input または textarea は常に、
+  信頼できる情報源として Vue インスタンスを扱います。
+  コンポーネントの data オプションの中で 
+  JavaScript 側で初期値を宣言する必要があります。 -->
+
+    <!-- v-model は、内部的には input 要素に応じて異なるプロパティを使用し、異なるイベントを送出します:
+  1. テキストと複数行テキストは、value プロパティと input イベントを使用します
+  2. チェックボックスとラジオボタンは、checked プロパティと change イベントを使用します
+  3. 選択フィールドは、value プロパティと change イベントを使用します -->
+
+    <!-- IME (中国語、日本語、韓国語、その他) が必須な言語において、
+  v-model では IME でテキストが確定するまでは更新されないことに注意してください。
+  これらの更新に対して対応したい場合は、input イベントを代わりに使用します。 -->
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+      <div>
+        <input @input="onChangeText" />
+      </div>
+      
+      <div>
+        <input v-model="message" placeholder="edit me" />
+        <p>Message is: {{ message }}</p>
+      </div>
+      <div>
+        <span>Multiline message is:</span>
+        <p style="white-space: pre-line;">{{ message }}</p>
+        <br />
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        <!-- この書き方をするときはread onlyな場合のみ(つまり書くことはない。。)-->
+        <!-- IMEとの兼ね合いでこの書き方をすることがあるが、その場合はinputイベントをmessageへのセッターとして組み込む。 -->
+        <textarea>{{ message }}</textarea>
+      </div>
+      <div>
+        <input type="checkbox" id="checkbox" v-model="checked" />
+        <label for="checkbox">{{ checked }}</label>
+      </div>
+      <div>
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+        <label for="mike">Mike</label>
+        <br />
+        <span>Checked names: {{ checkedNames }}</span>
+      </div>
+      <div>
+        <input type="radio" id="one" value="One" v-model="picked" />
+        <label for="one">One</label>
+        <br />
+        <input type="radio" id="two" value="Two" v-model="picked" />
+        <label for="two">Two</label>
+        <br />
+        <span>Picked: {{ picked }}</span>
+      </div>
+      <div>
+        <!-- v-model の式の初期値がオプションのどれとも一致しない場合
+        <select> 要素は “未選択” の状態で描画されます。
+            iOS ではこの場合、iOS が change イベントを発生させないため、
+            最初のアイテムを選択できなくなります。
+            したがって、上記の例に示すように、disabled な空の値のオプションを
+            追加しておくことをおすすめします。 -->
+        <select v-model="selected">
+          <option disabled value="">Please select one</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+      </div>
+      <div>
+        <!-- チェックされたとき、`picked` は文字列"a"になります -->
+        <input type="radio" v-model="picked" value="a" />
+
+        <!-- `toggle` は true かまたは false のどちらかです -->
+        <input type="checkbox" v-model="toggle" /><span>{{ toggle }}</span>
+
+        <!-- 最初のオプションが選択されたとき、`selected` は文字列"abc"です -->
+        <select v-model="selected">
+          <option value="abc">ABC</option>
+        </select>
+      </div>
+      <div>
+        <!-- true-value と false-value 属性は入力フォームの 
+        value 属性には影響を及ぼしません。
+        なぜならブラウザはフォームの送信の中にチェックされていない
+        チェックボックスを含めないからです。 
+        2つの値(たとえば “yes” / “no”)のどちらかが必ず
+        フォームで送信されることを保証するには、
+        代わりにラジオを使用してください。 -->
+        <input
+          type="checkbox"
+          v-model="toggle"
+          true-value="yes"
+          false-value="no"
+        />
+      </div>
+      <div>
+        <!-- "inputイベント" の代わりに "changeイベント" 後に同期します -->
+        <input v-model.lazy="message" />
+      </div>
+      <div>
+        <!-- 数値オブジェクトとしてモデル値に変換して格納する -->
+        <input v-model.number="age" type="number" /> {{ age * 10 }}
+      </div>
+      <div>
+          <!-- 空白を取り除くはずだができてない? -->
+        <input v-model.trim="message2" @input="log(message2)"/> {{ message2 }}
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
